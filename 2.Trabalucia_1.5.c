@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include "Fila.4.h"
+#include "Fila.5.h"
 #include <locale.h>
 #define n 50
 #define e 30
@@ -42,20 +42,20 @@ void ImprimeMenu()
 {
     system("cls");
     printf("\n\n\t==~~~~---~~~~==Menu==~~~~---~~~~==");
-    printf("\n\n\tEscolha uma das opções abaixo: \n");
+    printf("\n\n\tEscolha uma das opÃ§Ãµes abaixo: \n");
     printf("\n\t1. Inserir um pet na fila de atendimento.");
     printf("\n\t2. Atender o Pet.");
     printf("\n\t3. Buscar um pet pelo nome e/ou ID.");
-    printf("\n\t4. Imprimir um Relatório com todos os pets na fila de atendimento tanto de emergência quanto normal.");
-    printf("\n\t5. Imprimir o próximo pet a ser atendido.");
-    printf("\n\t6. Imprimir todos os pets que já foram atendidos.");
+    printf("\n\t4. Imprimir um RelatÃ³rio com todos os pets na fila de atendimento tanto de emergÃªncia quanto normal.");
+    printf("\n\t5. Imprimir o prÃ³ximo pet a ser atendido.");
+    printf("\n\t6. Imprimir todos os pets que jÃ¡ foram atendidos.");
     printf("\n\t7. Finalizar o sistema.");
 }
 
 void EscolhaErrada()
 {
     system("cls");
-    printf("\n\n\tEssa escolha não existe.\n\n\t");
+    printf("\n\n\tEssa escolha nÃ£o existe.\n\n\t");
     system("pause");
 }
 
@@ -69,7 +69,7 @@ void Escolha1(Fila *Emergencia,Fila *Normal)
         {
             system("cls");
 
-            printf("\n\n\tO pet a ser inserido na fila é de emergência? 0 para SIM, 1 para NÃO.");
+            printf("\n\n\tO pet a ser inserido na fila Ã© de emergÃªncia? 0 para SIM, 1 para NÃƒO.");
             printf("\n\tEscolha: ");
             resultado = scanf("%d",&menu);
 
@@ -108,7 +108,7 @@ void Escolha1(Fila *Emergencia,Fila *Normal)
             }
                     default:
                         system("cls");
-                        printf("\n\n\tEssa escolha não existe.\n\n\t");
+                        printf("\n\n\tEssa escolha nÃ£o existe.\n\n\t");
                     }
                     system("pause");
                 }
@@ -123,7 +123,7 @@ void Escolha2(Fila *Emergencia,Fila *Normal,Fila *Atendidos)
     if(VaziaFila(Emergencia) < 1)
     {
         Imprimir = RetiraFila(Emergencia);
-        printf("\n\n\tEsse atendimento é de EMERGÊNCIA!");
+        printf("\n\n\tEsse atendimento Ã© de EMERGÃŠNCIA!");
         imprimeFila(Imprimir);
         InsereFila(Atendidos,Imprimir->info.ID,Imprimir->info.idade,Imprimir->info.nome,Imprimir->info.especie,Imprimir->info.nascimento.dia,Imprimir->info.nascimento.mes,Imprimir->info.nascimento.ano,Imprimir->info.prioridade);
     }
@@ -132,13 +132,13 @@ void Escolha2(Fila *Emergencia,Fila *Normal,Fila *Atendidos)
         if(VaziaFila(Normal) < 1)
         {
             Imprimir = RetiraFila(Normal);
-            printf("\n\n\tEsse é um atendimeno NORMAL.");
+            printf("\n\n\tEsse Ã© um atendimeno NORMAL.");
             imprimeFila(Imprimir);
             InsereFila(Atendidos,Imprimir->info.ID,Imprimir->info.idade,Imprimir->info.nome,Imprimir->info.especie,Imprimir->info.nascimento.dia,Imprimir->info.nascimento.mes,Imprimir->info.nascimento.ano,Imprimir->info.prioridade);
         }
         else
         {
-            printf("\n\n\tNão há Pet para ser atendido no momento!");
+            printf("\n\n\tNÃ£o hÃ¡ Pet para ser atendido no momento!");
         }
     }
 
@@ -178,7 +178,7 @@ void Escolha3(Fila *Emergencia,Fila *Normal,Fila *Atendidos)
         CorrigirString(nome);
 
         system("cls");
-        printf("\n\n\tO(s) Pet(s) que procura se encontra(m) com as seguintes informações:\n");
+        printf("\n\n\tO(s) Pet(s) que procura se encontra(m) com as seguintes informaÃ§Ãµes:\n");
         buscaListaNome(Emergencia,Normal,Atendidos,nome);
     }
     else
@@ -187,7 +187,7 @@ void Escolha3(Fila *Emergencia,Fila *Normal,Fila *Atendidos)
         scanf("%d",&ID);
 
         system("cls");
-        printf("\n\n\tO Pet que procura se encontra com as seguintes informações:\n");
+        printf("\n\n\tO Pet que procura se encontra com as seguintes informaÃ§Ãµes:\n");
         buscaListaID(Emergencia,Normal,Atendidos,ID);
     }
     printf("\n\n\t");
@@ -198,8 +198,8 @@ void Escolha4(Fila *Emergencia,Fila *Normal)
 {
     system("cls");
 
-    printf("\n\n\tEsses são os Pets a serem atendidos com as seguintes informações: ");
-    printf("\n\tID | Nome | Espécie | Idade | Data de Nascimento | Prioridade ( Emergência = 0 e Normal = 1)\n");
+    printf("\n\n\tEsses sÃ£o os Pets a serem atendidos com as seguintes informaÃ§Ãµes: ");
+    printf("\n\tID | Nome | EspÃ©cie | Idade | Data de Nascimento | Prioridade ( EmergÃªncia = 0 e Normal = 1)\n");
     imprimeRelatorio(Emergencia,Normal);
     printf("\n\n\n\t");
     system("pause");
@@ -209,22 +209,22 @@ void Escolha5(Fila *Emergencia,Fila *Normal)
 {
     system("cls");
 
-    printf("\n\n\tEste é o próximo Pet a ser atendido: ");
+    printf("\n\n\tEste Ã© o prÃ³ximo Pet a ser atendido: ");
     if(VaziaFila(Emergencia) < 1)
     {
-        printf("\n\n\t\tEste atendimento é de EMERGÊNCIA!");
+        printf("\n\n\t\tEste atendimento Ã© de EMERGÃŠNCIA!");
                     imprimeFila(Emergencia->ini);
     }
     else
     {
         if(VaziaFila(Normal) < 1)
         {
-            printf("\n\n\t\tEste atendimento é NORMAL.");
+            printf("\n\n\t\tEste atendimento Ã© NORMAL.");
             imprimeFila(Normal->ini);
         }
         else
         {
-            printf("\n\n\tA Fila está VAZIA no momento!");
+            printf("\n\n\tA Fila estÃ¡ VAZIA no momento!");
         }
     }
     printf("\n\n\t");
@@ -235,8 +235,8 @@ void Escolha6(Fila *Atendidos)
 {
     system("cls");
 
-    printf("\n\n\tEsses Pets a seguir já foram atendidos com as seguintes informações: ");
-    printf("\n\tID | Nome | Espécie | Idade | Prioridade ( Emergência = 0 e Normal = 1)\n");
+    printf("\n\n\tEsses Pets a seguir jÃ¡ foram atendidos com as seguintes informaÃ§Ãµes: ");
+    printf("\n\tID | Nome | EspÃ©cie | Idade | Prioridade ( EmergÃªncia = 0 e Normal = 1)\n");
     imprimeAtendidos(Atendidos);
     printf("\n\n\n\t");
     system("pause");
@@ -358,7 +358,7 @@ int main()
             }
         default:
             system("cls");
-            printf("\n\n\tEsta opção não existe!\n\n\t");
+            printf("\n\n\tEsta opÃ§Ã£o nÃ£o existe!\n\n\t");
 
             system("pause");
         }
@@ -370,3 +370,4 @@ int main()
 
     return 0;
 }
+
