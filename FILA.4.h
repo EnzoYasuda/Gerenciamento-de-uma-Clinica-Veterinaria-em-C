@@ -1,6 +1,7 @@
 #ifndef FILA_H_INCLUDED
 #define FILA_H_INCLUDED
 #include <string.h>
+#include <time.h>
 #define n 50
 #define e 30
 
@@ -25,8 +26,8 @@ typedef struct Data
 
 typedef struct info_pet
 {
-    int idade,ID;
-    char nome[n],especie[e],prioridade[n];
+    int idade,ID,prioridade;
+    char nome[n],especie[e];
     Data nascimento;
 }info_pet;
 
@@ -54,7 +55,7 @@ int randomID(Fila *f)
     Nos *aux = f->ini;
     srand(time(NULL));
 
-    int rd_num = 100 + (rand() % 999);
+    int rd_num = 100 + (rand() % 900);
 
     while(aux != NULL)
     {
@@ -77,26 +78,26 @@ Fila* CriaFila ()
     return f;
 }
 
-Nos* ins_fim (Fila *f,Nos *fim, int idade, char nome[], char especie[], int dia, int mes, int ano, char prioridade[])
+Nos* ins_fim (Fila *f,Nos *fim, int ID, int idade, char nome[], char especie[], int dia, int mes, int ano, int prioridade)
 {
     Nos *p = (Nos*)malloc(sizeof(Nos));
-    p->info.ID = randomID(f);
+    p->info.ID = ID;
     p->info.idade = idade;
     strcpy(p->info.nome,nome);
     strcpy(p->info.especie,especie);
     p->info.nascimento.dia = dia;
     p->info.nascimento.mes = mes;
     p->info.nascimento.ano = ano;
-    strcpy(p->info.prioridade,prioridade);
+    p->info.prioridade = prioridade;
     p->prox = NULL;
     if (fim != NULL) /* verifica se lista não estava vazia */
     fim->prox = p;
     return p;
 }
 
-void InsereFila (Fila* f, int idade, char nome[], char especie[], int dia, int mes, int ano, char prioridade[])
+void InsereFila (Fila* f, int ID, int idade, char nome[], char especie[], int dia, int mes, int ano, int prioridade)
 {
-    f->fim = ins_fim(f,f->fim,idade,nome,especie,dia,mes,ano,prioridade);
+    f->fim = ins_fim(f,f->fim,ID,idade,nome,especie,dia,mes,ano,prioridade);
     if (f->ini==NULL) /* fila antes vazia? */
     f->ini = f->fim;
 }
@@ -111,11 +112,6 @@ Nos* retira_ini (Nos* ini)
 Nos* RetiraFila (Fila* f)
 {
     Nos *p = (Nos*)malloc(sizeof(Nos));
-    if (VaziaFila(f))
-    {
-        printf("Fila vazia.\n");
-        exit(0); /* aborta programa */
-    }
     p->info.ID = f->ini->info.ID;
     p->info.idade = f->ini->info.idade;
     strcpy(p->info.nome,f->ini->info.nome);
@@ -123,7 +119,7 @@ Nos* RetiraFila (Fila* f)
     p->info.nascimento.dia = f->ini->info.nascimento.dia;
     p->info.nascimento.mes = f->ini->info.nascimento.mes;
     p->info.nascimento.ano = f->ini->info.nascimento.ano;
-    strcpy(p->info.prioridade,f->ini->info.prioridade);
+    p->info.prioridade = f->ini->info.prioridade;
     f->ini = retira_ini(f->ini);
     if (f->ini == NULL) /* fila ficou vazia? */
     f->fim = NULL;
@@ -134,13 +130,15 @@ Nos* RetiraFila (Fila* f)
 
 void imprimeFila (Nos* imp)
 {
-    printf("\n\n\t--------------------------------------------------------------------------------");
-    printf("\n\n\tID: %d",imp->info.ID);
-    printf("\n\tNome: %s",imp->info.nome);
-    printf("\n\tEspécie: %s",imp->info.especie);
-    printf("\n\tIdade: %d",imp->info.idade);
-    printf("\n\tData de Nascimento: %d/%d/%d",imp->info.nascimento.dia,imp->info.nascimento.mes,imp->info.nascimento.ano);
-    printf("\n\n\t--------------------------------------------------------------------------------\n\n\t");
+    printf("\n\n\t|----------------------------------------------------------------|");
+    printf("\n\t|\t\t\t\t\t\t\t\t |");
+    printf("\n\t|\t\tID: %d\t\t\t\t\t\t |",imp->info.ID);
+    printf("\n\t|\t\tNome: %s\t\t\t\t\t |",imp->info.nome);
+    printf("\n\t|\t\tEspécie: %s\t\t\t\t|",imp->info.especie);
+    printf("\n\t|\t\tIdade: %d\t\t\t\t\t |",imp->info.idade);
+    printf("\n\t|\t\tData de Nascimento: %d/%d/%d\t\t\t |",imp->info.nascimento.dia,imp->info.nascimento.mes,imp->info.nascimento.ano);
+    printf("\n\t|\t\t\t\t\t\t\t\t |");
+    printf("\n\t|----------------------------------------------------------------|\n\n\t");
 }
 
 
@@ -173,7 +171,7 @@ void buscaListaNome(Fila* emer,Fila* nor,Fila* aten,char nome[])
             printf("\n\t\tID: %d",aux1->info.ID);
             printf("\n\t\tNome: %s",aux1->info.nome);
             printf("\n\t\tEspécie: %s",aux1->info.especie);
-            printf("\n\t\tNão foi atendido.");
+            printf("\n\t\tNão foi atendido.\n");
         }
 
         aux1 = aux1->prox;
@@ -189,7 +187,7 @@ void buscaListaNome(Fila* emer,Fila* nor,Fila* aten,char nome[])
             printf("\n\t\tID: %d",aux1->info.ID);
             printf("\n\t\tNome: %s",aux1->info.nome);
             printf("\n\t\tEspécie: %s",aux1->info.especie);
-            printf("\n\t\tNão foi atendido.");
+            printf("\n\t\tNão foi atendido.\n");
         }
 
         aux1 = aux1->prox;
@@ -201,13 +199,13 @@ void buscaListaNome(Fila* emer,Fila* nor,Fila* aten,char nome[])
     {
         if(strcmp(aux1->info.nome,nome) == 0)
         {
-            if(strcmp(aux1->info.prioridade,"Emergência") == 0)
+            if(aux1->info.prioridade == 0)
             {
                 printf("\n\tAtendimento de Emergência!");
                 printf("\n\t\tID: %d",aux1->info.ID);
                 printf("\n\t\tNome: %s",aux1->info.nome);
                 printf("\n\t\tEspécie: %s",aux1->info.especie);
-                printf("\n\t\tJá foi atendido.");
+                printf("\n\t\tJá foi atendido.\n");
             }
             else
             {
@@ -215,7 +213,7 @@ void buscaListaNome(Fila* emer,Fila* nor,Fila* aten,char nome[])
                 printf("\n\t\tID: %d",aux1->info.ID);
                 printf("\n\t\tNome: %s",aux1->info.nome);
                 printf("\n\t\tEspécie: %s",aux1->info.especie);
-                printf("\n\t\tJá foi atendido.");
+                printf("\n\t\tJá foi atendido.\n");
             }
         }
 
@@ -231,13 +229,13 @@ void buscaListaID(Fila* emer,Fila* nor,Fila* aten,int ID)
 
     while(aux1 != NULL)
     {
-        if(strcmp(aux1->info.ID,ID) == 0)
+        if(aux1->info.ID == ID)
         {
             printf("\n\tAtendimento de Emergência!");
             printf("\n\t\tID: %d",aux1->info.ID);
             printf("\n\t\tNome: %s",aux1->info.nome);
             printf("\n\t\tEspécie: %s",aux1->info.especie);
-            printf("\n\t\tNão foi atendido.");
+            printf("\n\t\tNão foi atendido.\n");
         }
 
         aux1 = aux1->prox;
@@ -247,13 +245,13 @@ void buscaListaID(Fila* emer,Fila* nor,Fila* aten,int ID)
 
     while(aux1 != NULL)
     {
-        if(strcmp(aux1->info.ID,ID) == 0)
+        if(aux1->info.ID == ID)
         {
             printf("\n\tAtendimento Normal.");
             printf("\n\t\tID: %d",aux1->info.ID);
             printf("\n\t\tNome: %s",aux1->info.nome);
             printf("\n\t\tEspécie: %s",aux1->info.especie);
-            printf("\n\t\tNão foi atendido.");
+            printf("\n\t\tNão foi atendido.\n");
         }
 
         aux1 = aux1->prox;
@@ -263,15 +261,15 @@ void buscaListaID(Fila* emer,Fila* nor,Fila* aten,int ID)
 
     while(aux1 != NULL)
     {
-        if(strcmp(aux1->info.ID,ID) == 0)
+        if(aux1->info.ID == ID)
         {
-            if(strcmp(aux1->info.prioridade,"Emergência") == 0)
+            if(aux1->info.prioridade == 0)
             {
                 printf("\n\tAtendimento de Emergência!");
                 printf("\n\t\tID: %d",aux1->info.ID);
                 printf("\n\t\tNome: %s",aux1->info.nome);
                 printf("\n\t\tEspécie: %s",aux1->info.especie);
-                printf("\n\t\tJá foi atendido.");
+                printf("\n\t\tJá foi atendido.\n");
             }
             else
             {
@@ -279,7 +277,7 @@ void buscaListaID(Fila* emer,Fila* nor,Fila* aten,int ID)
                 printf("\n\t\tID: %d",aux1->info.ID);
                 printf("\n\t\tNome: %s",aux1->info.nome);
                 printf("\n\t\tEspécie: %s",aux1->info.especie);
-                printf("\n\t\tJá foi atendido.");
+                printf("\n\t\tJá foi atendido.\n");
             }
         }
 
@@ -297,7 +295,7 @@ void imprimeRelatorio(Fila* emer, Fila* nor)
     {
         if(aux1 != NULL)
         {
-            printf("\n\t\t%d | %s | %s | %d | %d/%d/%d | %s",aux1->info.ID,aux1->info.nome,aux1->info.especie,aux1->info.nascimento.dia,aux1->info.nascimento.mes,aux1->info.nascimento.ano,aux1->info.prioridade);
+            printf("\n\n\t\t%d | %s | %s | %d | %d/%d/%d | %d",aux1->info.ID,aux1->info.nome,aux1->info.especie,aux1->info.idade,aux1->info.nascimento.dia,aux1->info.nascimento.mes,aux1->info.nascimento.ano,aux1->info.prioridade);
         }
 
         aux1 = aux1->prox;
@@ -308,7 +306,7 @@ void imprimeRelatorio(Fila* emer, Fila* nor)
     {
         if(aux1 != NULL)
         {
-            printf("\n\t\t%d | %s | %s | %d | %d/%d/%d | %s",aux1->info.ID,aux1->info.nome,aux1->info.especie,aux1->info.nascimento.dia,aux1->info.nascimento.mes,aux1->info.nascimento.ano,aux1->info.prioridade);
+            printf("\n\n\t\t%d | %s | %s | %d | %d/%d/%d | %d",aux1->info.ID,aux1->info.nome,aux1->info.especie,aux1->info.idade,aux1->info.nascimento.dia,aux1->info.nascimento.mes,aux1->info.nascimento.ano,aux1->info.prioridade);
         }
 
         aux1 = aux1->prox;
@@ -323,7 +321,7 @@ void imprimeAtendidos(Fila* aten)
 
     while(aux != NULL)
     {
-        printf("\n\t\t%d | %s | %s | %d | %s",aux->info.ID,aux->info.nome,aux->info.especie,aux->info.idade,aux->info.prioridade);
+        printf("\n\n\t\t%d | %s | %s | %d | %d",aux->info.ID,aux->info.nome,aux->info.especie,aux->info.idade,aux->info.prioridade);
 
         aux = aux->prox;
     }
