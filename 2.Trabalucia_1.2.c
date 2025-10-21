@@ -36,6 +36,7 @@ int main()
     Fila *Normal = CriaFila();
     Fila *Emergencia = CriaFila();
     Fila *Atendidos = CriaFila();
+    Nos *Imprimir;
 
     printf("\n\n\tGerenciamento do atendimento da Clínica Veterinária.\n\n\t");
     system("pause");
@@ -68,7 +69,8 @@ int main()
                 while((menu != 0) && (menu != 1))
                 {
                     system("cls");
-                    printf("\n\n\tEssa escolha não existe.");
+                    printf("\n\n\tEssa escolha não existe.\n\n\t");
+                    system("pause");
 
                     printf("\n\n\tO pet a ser inserido na fila é de emergência? 1 para sim, 0 para não.");
                     printf("\n\tEscolha: ");
@@ -90,11 +92,16 @@ int main()
                     scanf("%d",&idade);
 
                     printf("\n\tData Nascimento: ");
-                    scanf("%d/%d/%d",&dia,&mes,&ano);
+                    printf("\n\t\tDia: ");
+                    scanf("%d",&dia);
+                    printf("\n\t\tMês: ");
+                    scanf("%d",&mes);
+                    printf("\n\t\tAno: ");
+                    scanf("%d",&ano);
                     printf("--------------------------------------------------------------------------------");
 
 
-                    InsereFila(Emergencia,idade,nome[n],especie[e],dia,mes,ano);
+                    InsereFila(Emergencia,idade,nome[n],especie[e],dia,mes,ano,"Emergência");
                 }
                 else
                 {
@@ -111,35 +118,82 @@ int main()
                     scanf("%d",&idade);
 
                     printf("\n\tData Nascimento: ");
-                    scanf("%d/%d/%d",&dia,&mes,&ano);
+                    printf("\n\t\tDia: ");
+                    scanf("%d",&dia);
+                    printf("\n\t\tMês: ");
+                    scanf("%d",&mes);
+                    printf("\n\t\tAno: ");
+                    scanf("%d",&ano);
                     printf("--------------------------------------------------------------------------------");
 
 
-                    InsereFila(Normal,idade,nome[n],especie[e],dia,mes,ano);
+                    InsereFila(Normal,idade,nome[n],especie[e],dia,mes,ano,"Normal");
                 }
 
                 break;
             }
         case 2:
             {
+                system("cls");
+
+                if(VaziaFila(Emergencia) != 1)
+                {
+                    Imprimir = RetiraFila(Emergencia);
+                    printf("\n\n\tEsse atendimento foi de EMERGÊNCIA!");
+                    imprimeFila(Imprimir);
+                    printf("\n\n\t");
+                }
+                else
+                {
+                    Imprimir = RetiraFila(Normal);
+                    printf("\n\n\tEsse foi um atendimeno NORMAL.");
+                    imprimeFila(Imprimir);
+                    printf("\n\n\t");
+                }
+
+                system("pause");
 
                 break;
             }
         case 3:
             {
+                system("cls");
 
+                printf("\n\n\tDeseja buscar pelo nome ou ID?");
+                printf("\n\tEscolha: ");
+                fflush(stdin);
+                gets(nome);
+
+                while((nome != nome) && (nome != ID))
+                {
+                    system("cls");
+                    printf("\n\n\tEssa escolha não existe.\n\n\t");
+                    system("pause");
+
+                    printf("\n\n\tDeseja buscar pelo nome ou ID?");
+                    printf("\n\tEscolha: ");
+                    fflush(stdin);
+                    gets(nome);
+                }
+
+                if(nome == nome)
+                {
+                    buscaListaNome(Emergencia,Normal,Atendidos,nome[n]);
+                }
+
+                break;
             }
         case 4:
             {
-
+                break;
             }
         case 5:
             {
-
+                break;
             }
         case 6:
             {
-
+                break;
             }
         case 7:
             {
