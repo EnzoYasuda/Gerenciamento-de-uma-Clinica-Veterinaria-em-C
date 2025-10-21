@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include "Fila.h"
+#include "Fila.1.h"
 #include <locale.h>
 #define n 50
 #define e 30
@@ -37,19 +37,19 @@ int main()
     Fila *Emergencia = CriaFila();
     Fila *Atendidos = CriaFila();
 
-    printf("\n\n\tGerenciamento do atendimento da Clínica Veterinária.\n\n\t");
+    printf("\n\n\tGerenciamento do atendimento da ClÃ­nica VeterinÃ¡ria.\n\n\t");
     system("pause");
 
     while(encerrador == 0)
     {
         system("cls");
-        printf("\n\n\tEscolha uma das opções abaixo: \n");
+        printf("\n\n\tEscolha uma das opÃ§Ãµes abaixo: \n");
         printf("\n\t\t1. Inserir um pet na fila de atendimento.");
         printf("\n\t\t2. Atender o Pet.");
         printf("\n\t\t3. Buscar um pet pelo nome e/ou ID.");
-        printf("\n\t\t4. Imprimir um Relatório com todos os pets na fila de atendimento tanto de emergência quanto normal.");
-        printf("\n\t\t5. Imprimir o próximo pet a ser atendido.");
-        printf("\n\t\t6. Imprimir todos os pets que já foram atendidos.");
+        printf("\n\t\t4. Imprimir um RelatÃ³rio com todos os pets na fila de atendimento tanto de emergÃªncia quanto normal.");
+        printf("\n\t\t5. Imprimir o prÃ³ximo pet a ser atendido.");
+        printf("\n\t\t6. Imprimir todos os pets que jÃ¡ foram atendidos.");
         printf("\n\t\t7. Finalizar o sistema.");
 
         printf("\n\n\tEscolha: ");
@@ -61,16 +61,16 @@ int main()
             {
                 system("cls");
 
-                printf("\n\n\tO pet a ser inserido na fila é de emergência? 0 para sim, 1 para não.");
+                printf("\n\n\tO pet a ser inserido na fila Ã© de emergÃªncia? 0 para sim, 1 para nÃ£o.");
                 printf("\n\tEscolha: ");
                 scanf("%d",&menu);
 
                 while((menu != 0) && (menu != 1))
                 {
                     system("cls");
-                    printf("\n\n\tEssa escolha não existe.");
+                    printf("\n\n\tEssa escolha nÃ£o existe.");
 
-                    printf("\n\n\tO pet a ser inserido na fila é de emergência? 1 para sim, 0 para não.");
+                    printf("\n\n\tO pet a ser inserido na fila Ã© de emergÃªncia? 1 para sim, 0 para nÃ£o.");
                     printf("\n\tEscolha: ");
                     scanf("%d",&menu);
                 }
@@ -82,7 +82,7 @@ int main()
                     fflush(stdin);
                     gets(nome);
 
-                    printf("\n\tEspécie: ");
+                    printf("\n\tEspÃ©cie: ");
                     fflush(stdin);
                     gets(especie);
 
@@ -103,7 +103,7 @@ int main()
                     fflush(stdin);
                     gets(nome);
 
-                    printf("\n\tEspécie: ");
+                    printf("\n\tEspÃ©cie: ");
                     fflush(stdin);
                     gets(especie);
 
@@ -149,7 +149,7 @@ int main()
             }
         default:
             system("cls");
-            printf("\n\n\tEsta opção não existe!\n\n\t");
+            printf("\n\n\tEsta opÃ§Ã£o nÃ£o existe!\n\n\t");
 
             system("pause");
         }
@@ -157,3 +157,4 @@ int main()
 
     return 0;
 }
+
