@@ -51,9 +51,9 @@ int VaziaFila (Fila* f)
 
 }
 
-int randomID(Fila *f)
+int randomID(Fila *emer,Fila *nor,Fila *aten)
 {
-    Nos *aux = f->ini;
+    Nos *aux = emer->ini;
     srand(time(NULL));
 
     int rd_num = 100 + (rand() % 900);
@@ -62,7 +62,29 @@ int randomID(Fila *f)
     {
         if(aux -> info.ID == rd_num)
         {
-            return randomID(f);
+            return randomID(emer,nor,aten);
+        }
+
+        aux = aux -> prox;
+    }
+
+    aux = nor->ini;
+    while(aux != NULL)
+    {
+        if(aux -> info.ID == rd_num)
+        {
+            return randomID(emer,nor,aten);
+        }
+
+        aux = aux -> prox;
+    }
+
+    aux = aten->ini;
+    while(aux != NULL)
+    {
+        if(aux -> info.ID == rd_num)
+        {
+            return randomID(emer,nor,aten);
         }
 
         aux = aux -> prox;
@@ -202,6 +224,13 @@ void PedeData(char nome[], char especie[], int *idade, int *dia, int *mes, int *
 }
 
 
+void ImprimeDadosPet(Nos *aux1)
+{
+    printf("\n\t\tID: %d",aux1->info.ID);
+    printf("\n\t\tNome: %s",aux1->info.nome);
+    printf("\n\t\tEspécie: %s",aux1->info.especie);
+}
+
 Fila* CriaFila ()
 {
     Fila* f = (Fila*) malloc(sizeof(Fila));
@@ -293,6 +322,7 @@ void buscaListaNome(Fila* emer,Fila* nor,Fila* aten,char nome[])
 {
     Nos *aux1;
     aux1 = emer->ini;
+    int vazio=0;
 
     printf("\n");
 
@@ -301,10 +331,10 @@ void buscaListaNome(Fila* emer,Fila* nor,Fila* aten,char nome[])
         if(strcmp(aux1->info.nome,nome) == 0)
         {
             printf("\n\tAtendimento de Emergência!");
-            printf("\n\t\tID: %d",aux1->info.ID);
-            printf("\n\t\tNome: %s",aux1->info.nome);
-            printf("\n\t\tEspécie: %s",aux1->info.especie);
+            ImprimeDadosPet(aux1);
             printf("\n\t\tNão foi atendido.\n");
+
+            vazio++;
         }
 
         aux1 = aux1->prox;
@@ -317,10 +347,10 @@ void buscaListaNome(Fila* emer,Fila* nor,Fila* aten,char nome[])
         if(strcmp(aux1->info.nome,nome) == 0)
         {
             printf("\n\tAtendimento Normal.");
-            printf("\n\t\tID: %d",aux1->info.ID);
-            printf("\n\t\tNome: %s",aux1->info.nome);
-            printf("\n\t\tEspécie: %s",aux1->info.especie);
+            ImprimeDadosPet(aux1);
             printf("\n\t\tNão foi atendido.\n");
+
+            vazio++;
         }
 
         aux1 = aux1->prox;
@@ -335,22 +365,27 @@ void buscaListaNome(Fila* emer,Fila* nor,Fila* aten,char nome[])
             if(aux1->info.prioridade < 1)
             {
                 printf("\n\tAtendimento de Emergência!");
-                printf("\n\t\tID: %d",aux1->info.ID);
-                printf("\n\t\tNome: %s",aux1->info.nome);
-                printf("\n\t\tEspécie: %s",aux1->info.especie);
+                ImprimeDadosPet(aux1);
                 printf("\n\t\tJá foi atendido.\n");
+
+                vazio++;
             }
             else
             {
                 printf("\n\tAtendimento Normal.");
-                printf("\n\t\tID: %d",aux1->info.ID);
-                printf("\n\t\tNome: %s",aux1->info.nome);
-                printf("\n\t\tEspécie: %s",aux1->info.especie);
+                ImprimeDadosPet(aux1);
                 printf("\n\t\tJá foi atendido.\n");
+
+                vazio++;
             }
         }
 
         aux1 = aux1->prox;
+    }
+    if(vazio == 0)
+    {
+        system("cls");
+        printf("\n\n\tNão há Pet com este nome no momento.\n\n\t");
     }
 }
 
@@ -359,16 +394,17 @@ void buscaListaID(Fila* emer,Fila* nor,Fila* aten,int ID)
 {
     Nos *aux1;
     aux1 = emer->ini;
+    int vazio=0;
 
     while(aux1 != NULL)
     {
         if(aux1->info.ID == ID)
         {
             printf("\n\tAtendimento de Emergência!");
-            printf("\n\t\tID: %d",aux1->info.ID);
-            printf("\n\t\tNome: %s",aux1->info.nome);
-            printf("\n\t\tEspécie: %s",aux1->info.especie);
+            ImprimeDadosPet(aux1);
             printf("\n\t\tNão foi atendido.\n");
+
+            vazio++;
         }
 
         aux1 = aux1->prox;
@@ -381,10 +417,10 @@ void buscaListaID(Fila* emer,Fila* nor,Fila* aten,int ID)
         if(aux1->info.ID == ID)
         {
             printf("\n\tAtendimento Normal.");
-            printf("\n\t\tID: %d",aux1->info.ID);
-            printf("\n\t\tNome: %s",aux1->info.nome);
-            printf("\n\t\tEspécie: %s",aux1->info.especie);
+            ImprimeDadosPet(aux1);
             printf("\n\t\tNão foi atendido.\n");
+
+            vazio++;
         }
 
         aux1 = aux1->prox;
@@ -399,22 +435,27 @@ void buscaListaID(Fila* emer,Fila* nor,Fila* aten,int ID)
             if(aux1->info.prioridade == 0)
             {
                 printf("\n\tAtendimento de Emergência!");
-                printf("\n\t\tID: %d",aux1->info.ID);
-                printf("\n\t\tNome: %s",aux1->info.nome);
-                printf("\n\t\tEspécie: %s",aux1->info.especie);
+                ImprimeDadosPet(aux1);
                 printf("\n\t\tJá foi atendido.\n");
+
+                vazio++;
             }
             else
             {
                 printf("\n\tAtendimento Normal.");
-                printf("\n\t\tID: %d",aux1->info.ID);
-                printf("\n\t\tNome: %s",aux1->info.nome);
-                printf("\n\t\tEspécie: %s",aux1->info.especie);
+                ImprimeDadosPet(aux1);
                 printf("\n\t\tJá foi atendido.\n");
+
+                vazio++;
             }
         }
 
         aux1 = aux1->prox;
+    }
+    if(vazio == 0)
+    {
+        system("cls");
+        printf("\n\n\tNão há Pet com este ID no momento.\n\n\t");
     }
 }
 
@@ -424,19 +465,30 @@ void imprimeRelatorio(Fila* emer, Fila* nor)
     Nos *aux1;
     aux1 = emer->ini;
 
-    while(aux1 != NULL)
+    if(VaziaFila(emer) < 1)
     {
-        printf("\n\n\t\t%d | %s | %s | %d | %d/%d/%d | %d",aux1->info.ID,aux1->info.nome,aux1->info.especie,aux1->info.idade,aux1->info.nascimento.dia,aux1->info.nascimento.mes,aux1->info.nascimento.ano,aux1->info.prioridade);
+        while(aux1 != NULL)
+        {
+            printf("\n\n\t\t%d | %s | %s | %d | %d/%d/%d | %d",aux1->info.ID,aux1->info.nome,aux1->info.especie,aux1->info.idade,aux1->info.nascimento.dia,aux1->info.nascimento.mes,aux1->info.nascimento.ano,aux1->info.prioridade);
 
-        aux1 = aux1->prox;
+            aux1 = aux1->prox;
+        }
     }
 
-    aux1 = nor->ini;
-    while(aux1 != NULL)
+    else if(VaziaFila(nor) < 1)
     {
-        printf("\n\n\t\t%d | %s | %s | %d | %d/%d/%d | %d",aux1->info.ID,aux1->info.nome,aux1->info.especie,aux1->info.idade,aux1->info.nascimento.dia,aux1->info.nascimento.mes,aux1->info.nascimento.ano,aux1->info.prioridade);
+        aux1 = nor->ini;
+        while(aux1 != NULL)
+        {
+            printf("\n\n\t\t%d | %s | %s | %d | %d/%d/%d | %d",aux1->info.ID,aux1->info.nome,aux1->info.especie,aux1->info.idade,aux1->info.nascimento.dia,aux1->info.nascimento.mes,aux1->info.nascimento.ano,aux1->info.prioridade);
 
-        aux1 = aux1->prox;
+            aux1 = aux1->prox;
+        }
+    }
+    else
+    {
+        system("cls");
+        printf("\n\n\tNão há nenhum Pet para ser atendido no momento.\n\n\t");
     }
 }
 
@@ -446,12 +498,20 @@ void imprimeAtendidos(Fila* aten)
     Nos *aux;
     aux = aten->ini;
 
-    while(aux != NULL)
-    {
-        printf("\n\n\t\t%d | %s | %s | %d | %d",aux->info.ID,aux->info.nome,aux->info.especie,aux->info.idade,aux->info.prioridade);
+        if(VaziaFila(aten) < 1)
+        {
+            while(aux != NULL)
+            {
+                printf("\n\n\t\t%d | %s | %s | %d | %d",aux->info.ID,aux->info.nome,aux->info.especie,aux->info.idade,aux->info.prioridade);
 
-        aux = aux->prox;
-    }
+                aux = aux->prox;
+            }
+        }
+        else
+        {
+            system("cls");
+            printf("\n\n\tNenhum Pet foi atendido no momento.\n\n\t");
+        }
 }
 
 

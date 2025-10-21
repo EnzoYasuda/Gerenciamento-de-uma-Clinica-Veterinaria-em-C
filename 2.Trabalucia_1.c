@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include "Fila.4.h"
+#include "Fila.h"
 #include <locale.h>
 #define n 50
 #define e 30
@@ -59,7 +59,7 @@ void EscolhaErrada()
     system("pause");
 }
 
-void Escolha1(Fila *Emergencia,Fila *Normal)
+void Escolha1(Fila *Emergencia,Fila *Normal,Fila *Atendidos)
 {
     int menu,ID,idade,dia,mes,ano,aux=0,resultado;
     char nome[n],especie[e];
@@ -82,14 +82,14 @@ void Escolha1(Fila *Emergencia,Fila *Normal)
             }
         }while(resultado != 1);
 
+        PedeData(nome,especie,&idade,&dia,&mes,&ano);
+
+        ID = randomID(Emergencia,Normal,Atendidos);
+
         switch(menu)
         {
         case 0:
             {
-                PedeData(nome,especie,&idade,&dia,&mes,&ano);
-
-                ID = randomID(Emergencia);
-
                 InsereFila(Emergencia,ID,idade,nome,especie,dia,mes,ano,menu);
 
                 aux++;
@@ -97,10 +97,6 @@ void Escolha1(Fila *Emergencia,Fila *Normal)
             }
         case 1:
             {
-                PedeData(nome,especie,&idade,&dia,&mes,&ano);
-
-                ID = randomID(Normal);
-
                 InsereFila(Normal,ID,idade,nome,especie,dia,mes,ano,menu);
 
                 aux++;
@@ -213,7 +209,7 @@ void Escolha5(Fila *Emergencia,Fila *Normal)
     if(VaziaFila(Emergencia) < 1)
     {
         printf("\n\n\t\tEste atendimento é de EMERGÊNCIA!");
-                    imprimeFila(Emergencia->ini);
+        imprimeFila(Emergencia->ini);
     }
     else
     {
@@ -316,7 +312,7 @@ int main()
         {
         case 1:
             {
-                Escolha1(Emergencia,Normal);
+                Escolha1(Emergencia,Normal,Atendidos);
 
                 break;
             }
