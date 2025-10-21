@@ -2,6 +2,7 @@
 #define FILA_H_INCLUDED
 #include <string.h>
 #include <time.h>
+#include <ctype.h>
 #define n 50
 #define e 30
 
@@ -70,6 +71,136 @@ int randomID(Fila *f)
     return rd_num;
 }
 
+void CorrigirString(char s[])
+{
+    s[0] = toupper(s[0]);
+    for(int i = 1;s[i] != '\0';i++)
+    {
+        if((s[i - 1] == ' ') || (s[i - 1] == '-'))
+        {
+            s[i] = toupper(s[i]);
+        }
+        else
+        {
+            s[i] = tolower(s[i]);
+        }
+    }
+}
+
+void PrintCentro(char s[],int largura)
+{
+    int len = strlen(s);
+    int pad = (largura - len)/2;
+
+    if(pad < 0)
+    {
+        pad = 0;
+    }
+
+    for(int i = 0;i < pad; i++)
+    {
+        printf(" ");
+    }
+    printf("%s\n",s);
+}
+
+void PedeData(char nome[], char especie[], int *idade, int *dia, int *mes, int *ano)
+{
+    int valido,resultado;
+
+    printf("\n\n\t--------------------------------------------------------------------------------");
+    printf("\n\n\tNome: ");
+    fflush(stdin);
+    gets(nome);
+
+    printf("\n\tEspécie: ");
+    fflush(stdin);
+    gets(especie);
+
+    do
+    {
+        printf("\n\tIdade: ");
+        resultado = scanf("%d",idade);
+
+        if(resultado != 1)
+        {
+            while(getchar() != '\n');
+            {
+                printf("\n\tDigite uma idade válida: ");
+            }
+        }
+    }while(resultado != 1);
+
+    valido = 0;
+    printf("\n\tData de Nascimento: ");
+    printf("\n");
+    do
+    {
+        printf("\n\t\tDia: ");
+        resultado = scanf("%d",dia);
+        if(resultado != 1)
+        {
+            while(getchar() != '\n')
+            {
+                printf("\n\t\tDigite um dia válido (1 - 31): ");
+            }
+        }
+        else if((*dia < 1) || (*dia > 31))
+        {
+            printf("\n\t\tDigite um dia válido (1 - 31): ");
+        }
+        else
+        {
+            valido++;
+        }
+    }while(valido < 1);
+
+    valido = 0;
+    do
+    {
+        printf("\n\t\tMês: ");
+        resultado = scanf("%d",mes);
+        if(resultado != 1)
+        {
+            while(getchar() != '\n');
+            {
+                printf("\n\t\tDigite um mês válido (1 - 12): ");
+            }
+        }
+        else if((*mes < 1) || (*mes > 12))
+        {
+            printf("\n\t\tDigite um mês válido (1 - 12): ");
+        }
+        else
+        {
+            valido++;
+        }
+    }while(valido < 0);
+
+    valido = 0;
+    do
+    {
+        printf("\n\t\tAno: ");
+        resultado = scanf("%d",ano);
+        if(resultado != 1)
+        {
+            while(getchar() != '\n');
+            {
+                printf("\n\t\tDigite um ano válido (0 - 2025): ");
+            }
+        }
+        else if((*ano < 0) || (*ano > 2025))
+        {
+            printf("\n\t\tDigite um ano válido (0 - 2025): ");
+        }
+        else
+        {
+            valido++;
+        }
+    }while(valido < 0);
+    printf("\n\n\t--------------------------------------------------------------------------------\n\n\t");
+}
+
 
 Fila* CriaFila ()
 {
@@ -83,7 +214,9 @@ Nos* ins_fim (Fila *f,Nos *fim, int ID, int idade, char nome[], char especie[], 
     Nos *p = (Nos*)malloc(sizeof(Nos));
     p->info.ID = ID;
     p->info.idade = idade;
+    CorrigirString(nome);
     strcpy(p->info.nome,nome);
+    CorrigirString(especie);
     strcpy(p->info.especie,especie);
     p->info.nascimento.dia = dia;
     p->info.nascimento.mes = mes;
@@ -199,7 +332,7 @@ void buscaListaNome(Fila* emer,Fila* nor,Fila* aten,char nome[])
     {
         if(strcmp(aux1->info.nome,nome) == 0)
         {
-            if(aux1->info.prioridade == 0)
+            if(aux1->info.prioridade < 1)
             {
                 printf("\n\tAtendimento de Emergência!");
                 printf("\n\t\tID: %d",aux1->info.ID);
@@ -293,10 +426,7 @@ void imprimeRelatorio(Fila* emer, Fila* nor)
 
     while(aux1 != NULL)
     {
-        if(aux1 != NULL)
-        {
-            printf("\n\n\t\t%d | %s | %s | %d | %d/%d/%d | %d",aux1->info.ID,aux1->info.nome,aux1->info.especie,aux1->info.idade,aux1->info.nascimento.dia,aux1->info.nascimento.mes,aux1->info.nascimento.ano,aux1->info.prioridade);
-        }
+        printf("\n\n\t\t%d | %s | %s | %d | %d/%d/%d | %d",aux1->info.ID,aux1->info.nome,aux1->info.especie,aux1->info.idade,aux1->info.nascimento.dia,aux1->info.nascimento.mes,aux1->info.nascimento.ano,aux1->info.prioridade);
 
         aux1 = aux1->prox;
     }
@@ -304,10 +434,7 @@ void imprimeRelatorio(Fila* emer, Fila* nor)
     aux1 = nor->ini;
     while(aux1 != NULL)
     {
-        if(aux1 != NULL)
-        {
-            printf("\n\n\t\t%d | %s | %s | %d | %d/%d/%d | %d",aux1->info.ID,aux1->info.nome,aux1->info.especie,aux1->info.idade,aux1->info.nascimento.dia,aux1->info.nascimento.mes,aux1->info.nascimento.ano,aux1->info.prioridade);
-        }
+        printf("\n\n\t\t%d | %s | %s | %d | %d/%d/%d | %d",aux1->info.ID,aux1->info.nome,aux1->info.especie,aux1->info.idade,aux1->info.nascimento.dia,aux1->info.nascimento.mes,aux1->info.nascimento.ano,aux1->info.prioridade);
 
         aux1 = aux1->prox;
     }
