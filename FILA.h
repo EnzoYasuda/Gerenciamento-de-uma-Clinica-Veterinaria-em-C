@@ -6,15 +6,15 @@
 #define n 50
 #define e 30
 
-/* FUN«’ES DE MANIPULA«√O DE PFILA
+/* FUN√á√ïES DE MANIPULA√á√ÉO DE PFILA
 
 Fila* CriaFila()  CRIA A FILA
 
-int VaziaFila (Fila* f) VERIFICA SE A FILA EST¡ VAZIA RETORNA 1 QUANDO EST¡ VAZIA
+int VaziaFila (Fila* f) VERIFICA SE A FILA EST√Å VAZIA RETORNA 1 QUANDO EST√Å VAZIA
 
-void InsereFila (Fila* f, int v) INSER«√O
+void InsereFila (Fila* f, int v) INSER√á√ÉO
 
-int RetiraFila (Fila* f) REMO«√O
+int RetiraFila (Fila* f) REMO√á√ÉO
 
 Fila* liberaFila (Fila* f) LIBERA A FILA
 
@@ -135,7 +135,7 @@ void PedeData(char nome[], char especie[], int *idade, int *dia, int *mes, int *
     fflush(stdin);
     gets(nome);
 
-    printf("\n\tEspÈcie: ");
+    printf("\n\tEsp√©cie: ");
     fflush(stdin);
     gets(especie);
 
@@ -148,7 +148,7 @@ void PedeData(char nome[], char especie[], int *idade, int *dia, int *mes, int *
         {
             while(getchar() != '\n');
             {
-                printf("\n\tDigite uma idade v·lida: ");
+                printf("\n\tDigite uma idade v√°lida: ");
             }
         }
     }while(resultado != 1);
@@ -164,12 +164,12 @@ void PedeData(char nome[], char especie[], int *idade, int *dia, int *mes, int *
         {
             while(getchar() != '\n')
             {
-                printf("\n\t\tDigite um dia v·lido (1 - 31): ");
+                printf("\n\t\tDigite um dia v√°lido (1 - 31): ");
             }
         }
         else if((*dia < 1) || (*dia > 31))
         {
-            printf("\n\t\tDigite um dia v·lido (1 - 31): ");
+            printf("\n\t\tDigite um dia v√°lido (1 - 31): ");
         }
         else
         {
@@ -180,18 +180,18 @@ void PedeData(char nome[], char especie[], int *idade, int *dia, int *mes, int *
     valido = 0;
     do
     {
-        printf("\n\t\tMÍs: ");
+        printf("\n\t\tM√™s: ");
         resultado = scanf("%d",mes);
         if(resultado != 1)
         {
             while(getchar() != '\n');
             {
-                printf("\n\t\tDigite um mÍs v·lido (1 - 12): ");
+                printf("\n\t\tDigite um m√™s v√°lido (1 - 12): ");
             }
         }
         else if((*mes < 1) || (*mes > 12))
         {
-            printf("\n\t\tDigite um mÍs v·lido (1 - 12): ");
+            printf("\n\t\tDigite um m√™s v√°lido (1 - 12): ");
         }
         else
         {
@@ -208,12 +208,12 @@ void PedeData(char nome[], char especie[], int *idade, int *dia, int *mes, int *
         {
             while(getchar() != '\n');
             {
-                printf("\n\t\tDigite um ano v·lido (0 - 2025): ");
+                printf("\n\t\tDigite um ano v√°lido (0 - 2025): ");
             }
         }
         else if((*ano < 0) || (*ano > 2025))
         {
-            printf("\n\t\tDigite um ano v·lido (0 - 2025): ");
+            printf("\n\t\tDigite um ano v√°lido (0 - 2025): ");
         }
         else
         {
@@ -228,7 +228,7 @@ void ImprimeDadosPet(Nos *aux1)
 {
     printf("\n\t\tID: %d",aux1->info.ID);
     printf("\n\t\tNome: %s",aux1->info.nome);
-    printf("\n\t\tEspÈcie: %s",aux1->info.especie);
+    printf("\n\t\tEsp√©cie: %s",aux1->info.especie);
 }
 
 Fila* CriaFila ()
@@ -252,7 +252,7 @@ Nos* ins_fim (Fila *f,Nos *fim, int ID, int idade, char nome[], char especie[], 
     p->info.nascimento.ano = ano;
     p->info.prioridade = prioridade;
     p->prox = NULL;
-    if (fim != NULL) /* verifica se lista n„o estava vazia */
+    if (fim != NULL) /* verifica se lista n√£o estava vazia */
     fim->prox = p;
     return p;
 }
@@ -296,7 +296,7 @@ void imprimeFila (Nos* imp)
     printf("\n\t|\t\t\t\t\t\t\t\t |");
     printf("\n\t|\t\tID: %d\t\t\t\t\t\t |",imp->info.ID);
     printf("\n\t|\t\tNome: %s\t\t\t\t\t |",imp->info.nome);
-    printf("\n\t|\t\tEspÈcie: %s\t\t\t\t|",imp->info.especie);
+    printf("\n\t|\t\tEsp√©cie: %s\t\t\t\t|",imp->info.especie);
     printf("\n\t|\t\tIdade: %d\t\t\t\t\t |",imp->info.idade);
     printf("\n\t|\t\tData de Nascimento: %d/%d/%d\t\t\t |",imp->info.nascimento.dia,imp->info.nascimento.mes,imp->info.nascimento.ano);
     printf("\n\t|\t\t\t\t\t\t\t\t |");
@@ -330,9 +330,9 @@ void buscaListaNome(Fila* emer,Fila* nor,Fila* aten,char nome[])
     {
         if(strcmp(aux1->info.nome,nome) == 0)
         {
-            printf("\n\tAtendimento de EmergÍncia!");
+            printf("\n\tAtendimento de Emerg√™ncia!");
             ImprimeDadosPet(aux1);
-            printf("\n\t\tN„o foi atendido.\n");
+            printf("\n\t\tN√£o foi atendido.\n");
 
             vazio++;
         }
@@ -348,7 +348,7 @@ void buscaListaNome(Fila* emer,Fila* nor,Fila* aten,char nome[])
         {
             printf("\n\tAtendimento Normal.");
             ImprimeDadosPet(aux1);
-            printf("\n\t\tN„o foi atendido.\n");
+            printf("\n\t\tN√£o foi atendido.\n");
 
             vazio++;
         }
@@ -364,9 +364,9 @@ void buscaListaNome(Fila* emer,Fila* nor,Fila* aten,char nome[])
         {
             if(aux1->info.prioridade < 1)
             {
-                printf("\n\tAtendimento de EmergÍncia!");
+                printf("\n\tAtendimento de Emerg√™ncia!");
                 ImprimeDadosPet(aux1);
-                printf("\n\t\tJ· foi atendido.\n");
+                printf("\n\t\tJ√° foi atendido.\n");
 
                 vazio++;
             }
@@ -374,7 +374,7 @@ void buscaListaNome(Fila* emer,Fila* nor,Fila* aten,char nome[])
             {
                 printf("\n\tAtendimento Normal.");
                 ImprimeDadosPet(aux1);
-                printf("\n\t\tJ· foi atendido.\n");
+                printf("\n\t\tJ√° foi atendido.\n");
 
                 vazio++;
             }
@@ -385,7 +385,7 @@ void buscaListaNome(Fila* emer,Fila* nor,Fila* aten,char nome[])
     if(vazio == 0)
     {
         system("cls");
-        printf("\n\n\tN„o h· Pet com este nome no momento.\n\n\t");
+        printf("\n\n\tN√£o h√° Pet com este nome no momento.\n\n\t");
     }
 }
 
@@ -400,9 +400,9 @@ void buscaListaID(Fila* emer,Fila* nor,Fila* aten,int ID)
     {
         if(aux1->info.ID == ID)
         {
-            printf("\n\tAtendimento de EmergÍncia!");
+            printf("\n\tAtendimento de Emerg√™ncia!");
             ImprimeDadosPet(aux1);
-            printf("\n\t\tN„o foi atendido.\n");
+            printf("\n\t\tN√£o foi atendido.\n");
 
             vazio++;
         }
@@ -418,7 +418,7 @@ void buscaListaID(Fila* emer,Fila* nor,Fila* aten,int ID)
         {
             printf("\n\tAtendimento Normal.");
             ImprimeDadosPet(aux1);
-            printf("\n\t\tN„o foi atendido.\n");
+            printf("\n\t\tN√£o foi atendido.\n");
 
             vazio++;
         }
@@ -434,9 +434,9 @@ void buscaListaID(Fila* emer,Fila* nor,Fila* aten,int ID)
         {
             if(aux1->info.prioridade == 0)
             {
-                printf("\n\tAtendimento de EmergÍncia!");
+                printf("\n\tAtendimento de Emerg√™ncia!");
                 ImprimeDadosPet(aux1);
-                printf("\n\t\tJ· foi atendido.\n");
+                printf("\n\t\tJ√° foi atendido.\n");
 
                 vazio++;
             }
@@ -444,7 +444,7 @@ void buscaListaID(Fila* emer,Fila* nor,Fila* aten,int ID)
             {
                 printf("\n\tAtendimento Normal.");
                 ImprimeDadosPet(aux1);
-                printf("\n\t\tJ· foi atendido.\n");
+                printf("\n\t\tJ√° foi atendido.\n");
 
                 vazio++;
             }
@@ -455,7 +455,7 @@ void buscaListaID(Fila* emer,Fila* nor,Fila* aten,int ID)
     if(vazio == 0)
     {
         system("cls");
-        printf("\n\n\tN„o h· Pet com este ID no momento.\n\n\t");
+        printf("\n\n\tN√£o h√° Pet com este ID no momento.\n\n\t");
     }
 }
 
@@ -475,7 +475,7 @@ void imprimeRelatorio(Fila* emer, Fila* nor)
         }
     }
 
-    else if(VaziaFila(nor) < 1)
+    if(VaziaFila(nor) < 1)
     {
         aux1 = nor->ini;
         while(aux1 != NULL)
@@ -488,7 +488,7 @@ void imprimeRelatorio(Fila* emer, Fila* nor)
     else
     {
         system("cls");
-        printf("\n\n\tN„o h· nenhum Pet para ser atendido no momento.\n\n\t");
+        printf("\n\n\tN√£o h√° nenhum Pet para ser atendido no momento.\n\n\t");
     }
 }
 
@@ -516,3 +516,4 @@ void imprimeAtendidos(Fila* aten)
 
 
 #endif // FILA_H_INCLUDED
+
